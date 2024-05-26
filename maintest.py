@@ -5,25 +5,33 @@ from PyQt5.QtCore import QTimer
 from test import MainWindow
 import sys
 
-def main():
-    """Main"""
-    app = QApplication(sys.argv)
-    splash(app)
-    window = MainWindow()
-    window.show()
-    sys.exit(app.exec_())
+class MainApplication(QtWidgets.QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Main Application")
 
 def splash(app):
     splash_image = QPixmap("img3.gif")
     splash = QSplashScreen(splash_image)
     splash.show()
-    
-    QTimer.singleShot(3000, lambda: show_main_window(splash))
+    QTimer.singleShot(2000, lambda: show_main_window(app, splash))
 
-def show_main_window(splash):
+def show_main_window(app, splash):
     splash.close()
-    window = MainWindow()
+    window = MainApplication()
     window.show()
+
+def main():
+    app = QApplication(sys.argv)
+    splash(app)
+    sys.exit(app.exec_())
 
 if __name__ == "__main__":
     main()
+
+
+
+
+
+
+
